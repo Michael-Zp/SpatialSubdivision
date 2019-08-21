@@ -2,6 +2,18 @@
 
 namespace SpatialSubdivision
 {
+    public struct CircleInGridCell
+    {
+        public Circle Circle;
+        public bool IsCenteroid;
+
+        public CircleInGridCell(Circle circle, bool isCenteroid)
+        {
+            Circle = circle;
+            IsCenteroid = isCenteroid;
+        }
+    }
+
     public class GridCell
     {
         public float MinX;
@@ -9,11 +21,17 @@ namespace SpatialSubdivision
         public float MinY;
         public float MaxY;
 
-        public List<Circle> Centeroids = new List<Circle>();
-        public List<Circle> Colliding = new List<Circle>();
+        public int ID;
+
+        private static int _nextId = 0;
+        
+        public List<CircleInGridCell> Colliding = new List<CircleInGridCell>();
 
         public GridCell(float minX, float maxX, float minY, float maxY)
         {
+            _nextId++;
+            ID = _nextId;
+
             MinX = minX;
             MaxX = maxX;
             MinY = minY;
